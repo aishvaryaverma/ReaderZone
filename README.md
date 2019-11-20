@@ -35,7 +35,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 I have used yarn instead of NPM.
 
-Upload button works basically to upload and show file to frontend we need an server to upload a file. so i just get the file name and format and display on Frontend
+Upload button working basically i have get formData and show file to frontend.
 
 Node Sass is used in this project, Also followed 7-1 scss architecture
 
