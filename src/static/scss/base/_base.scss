@@ -5,6 +5,9 @@
     padding: 0;
     box-sizing: inherit;
 }
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
 
 html {
     // This defines what 1rem is
@@ -13,12 +16,15 @@ html {
 	@media (max-width: $macbook) {
 		font-size: 59.375%;
 	}
+	@media (max-width: $mobile-big) {
+		font-size: 45%;
+	}
 }
 
 body {
     padding: 0;
 	box-sizing: border-box;
-	background-color: #E5E5E5;
+	background-color: $color-grey-light-1;
 }
 
 

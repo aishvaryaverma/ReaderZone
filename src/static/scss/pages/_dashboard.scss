@@ -1,6 +1,6 @@
 .documentHeading {
     display: flex;
-    align-items: center;
+    // align-items: center;
 
     svg {
         width: 4rem;
@@ -11,8 +11,8 @@
         font-family: Poppins;
         font-style: normal;
         font-weight: bold;
-        font-size: 36px;
-        line-height: 54px;
+        font-size: 3.6rem;
+        line-height: 1;
         display: flex;
         color: #2D1F3F;
         align-items: center;
@@ -21,12 +21,30 @@
 }
 
 .viewerFrame {
-    width: 634px;
-    height: 802px;
-    left: 463.16px;
-    top: 158px;
-
+    margin-top: 4rem;
+    width: 63.4rem;
+    height: 80.2rem;
     background: #FFFFFF;
-    border: 10px dashed #FF0000;
     box-sizing: border-box;
+    border: 1rem dashed #FF0000;
+
+    @media (max-width: $mobile-big) {
+        width: 100%;
+    }
+}
+
+.mobilePanel {
+    display: none;
+    padding: 1rem 2rem;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    svg {
+        width: 2.6rem;
+        height: 2.6rem;
+    }
+
+    @media (max-width: $mobile-big) {
+        display: flex;
+    }
 }

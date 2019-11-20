@@ -1,13 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as Logo } from '../../static/img/logo_sm_white.svg';
 import { ReactComponent as DocumentIcon } from '../../static/img/document-icon-small.svg';
 import { ReactComponent as UploadIcon } from '../../static/img/upload-icon.svg';
 
-const LeftNavigation = () => {
+const LeftNavigation = ({ files, onInputChange, updateCurFile }) => {
+	const [fileList, setFileList] = useState(null);
+	const [selector] = useState('.fileList__listItems--card');
+	const [selector2] = useState('.mainContainer__right');
+
+	useEffect(() => {
+		let fileListArr = files.map((file, i) => {
+			const allItems = Array.from(document.querySelectorAll(selector));
+			allItems.forEach(item => item.classList.remove('current'));
+
+			if(i === (files.length - 1)) {
+				return (
+					<div className="fileList__listItems--card current" data-index={i} key={i} onClick={e => onClick(e)}>
+						<div className="icon"><DocumentIcon /></div>
+						<div className="content">
+							<h2>{file.name}</h2>
+							<p>format: {file.format}</p>
+						</div>
+					</div>
+				)
+			} else {
+				return (
+					<div className="fileList__listItems--card" key={i} onClick={e => onClick(e)}>
+						<div className="icon"><DocumentIcon /></div>
+						<div className="content">
+							<h2>{file.name}</h2>
+							<p>format: {file.format}</p>
+						</div>
+					</div>
+				)
+			}
+		});
+
+		setFileList(fileListArr);
+	// eslint-disable-next-line
+	}, [files]);
 
 	const onChange = (e) => {
-		console.log(e)
-		console.log(document.getElementById('fileItem').files[0]);
+		if(e.target.files[0]) {
+			const filename = e.target.files[0].name.split('.')[0];
+			const fileFormat = e.target.files[0].name.split('.')[1];
+			onInputChange(filename, fileFormat);
+		}
+	}
+	
+	const onClick = (e) => {
+		const allItems = Array.from(document.querySelectorAll(selector));
+		const curItem = e.target.closest(selector);
+		const index = allItems.indexOf(curItem);
+		
+		allItems.forEach(item => item.classList.remove('current'));
+		curItem.classList.add('current');
+		document.querySelector(selector2).classList.add('showMobile');
+		updateCurFile(files[index].name);
 	}
 
     return (
@@ -19,30 +68,17 @@ const LeftNavigation = () => {
 			<div className="fileList">
 				<div className="fileList__heading">Files</div>
 				<div className="fileList__listItems">
-					<div className="fileList__listItems--card current">
-						<div className="icon"><DocumentIcon /></div>
-						<div className="content">
-							<h2>Document 01</h2>
-							<p>Nam vel porta velit</p>
-						</div>
-					</div>
-					<div className="fileList__listItems--card">
-						<div className="icon"><DocumentIcon /></div>
-						<div className="content">
-							<h2>Document 01</h2>
-							<p>Nam vel porta velit</p>
-						</div>
-					</div>
+					{fileList}
 				</div>
 			</div>
 
-			<div className="uploadButton">
+			<form className="uploadButton">
 				<input type="file" className="fileInput" id="fileItem" onChange={onChange} />
 				<button className="btn">
 					<UploadIcon />
 					<span>Upload Files</span>
 				</button>
-			</div>
+			</form>
         </div>
     )
 }
