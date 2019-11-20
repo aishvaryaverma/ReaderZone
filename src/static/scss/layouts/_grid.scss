@@ -1,0 +1,31 @@
+.mainContainer {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    justify-content: flex-end;
+
+    &__left {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        flex-shrink: 1;
+        flex-basis: 38.4rem;
+        background-color: #070D59;
+
+        @media (max-width: $macbook) {
+            // flex-basis: 26rem;
+        }
+    }
+    
+    &__right {
+        flex-grow: 1;
+        flex-basis: auto;
+        padding: 6rem;
+        max-width: calc(100% - 38.4rem);
+    }
+}

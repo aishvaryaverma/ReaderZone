@@ -1,0 +1,32 @@
+.documentHeading {
+    display: flex;
+    align-items: center;
+
+    svg {
+        width: 4rem;
+    }
+
+    h2 {
+        margin: 0;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 54px;
+        display: flex;
+        color: #2D1F3F;
+        align-items: center;
+        padding-left: 1.5rem;
+    }
+}
+
+.viewerFrame {
+    width: 634px;
+    height: 802px;
+    left: 463.16px;
+    top: 158px;
+
+    background: #FFFFFF;
+    border: 10px dashed #FF0000;
+    box-sizing: border-box;
+}
