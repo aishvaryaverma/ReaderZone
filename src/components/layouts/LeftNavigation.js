@@ -3,7 +3,11 @@ import { ReactComponent as Logo } from '../../static/img/logo_sm_white.svg';
 import { ReactComponent as DocumentIcon } from '../../static/img/document-icon-small.svg';
 import { ReactComponent as UploadIcon } from '../../static/img/upload-icon.svg';
 
-const LeftNavigation = ({ files, onInputChange, updateCurFile }) => {
+const LeftNavigation = ({
+	files,
+	updateIndex,
+	onInputChange
+}) => {
 	const [fileList, setFileList] = useState(null);
 	const [selector] = useState('.fileList__listItems--card');
 	const [selector2] = useState('.mainContainer__right');
@@ -39,14 +43,6 @@ const LeftNavigation = ({ files, onInputChange, updateCurFile }) => {
 		setFileList(fileListArr);
 	// eslint-disable-next-line
 	}, [files]);
-
-	const onChange = (e) => {
-		if(e.target.files[0]) {
-			const filename = e.target.files[0].name.split('.')[0];
-			const fileFormat = e.target.files[0].name.split('.')[1];
-			onInputChange(filename, fileFormat);
-		}
-	}
 	
 	const onClick = (e) => {
 		const allItems = Array.from(document.querySelectorAll(selector));
@@ -56,7 +52,25 @@ const LeftNavigation = ({ files, onInputChange, updateCurFile }) => {
 		allItems.forEach(item => item.classList.remove('current'));
 		curItem.classList.add('current');
 		document.querySelector(selector2).classList.add('showMobile');
-		updateCurFile(files[index].name);
+		updateIndex(index);
+	}
+
+	const onChange = (e) => {
+		if(e.target.files[0]) {
+			const file = e.target.files[0]
+			const name = file.name.split('.')[0];
+			const format = e.target.files[0].name.split('.')[1];
+			
+			// Show File
+			var reader = new FileReader();
+			reader.onload = function (evt) {
+				const data = evt.target.result
+				onInputChange(name, format, data);
+				updateIndex(files.length)
+			};
+
+			reader.readAsDataURL(file);
+		}
 	}
 
     return (

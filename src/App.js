@@ -8,11 +8,11 @@ import './static/scss/main.scss';
 class App extends Component {
     state = {
         files: [],
-        currentFile: ''
+        curIndex: 0
     }
 
-    onInputChange = (name, format) => {
-        const curFile = { name, format };
+    onInputChange = (name, format, data) => {
+        const curFile = { name, format, data };
         const newFiles = [...this.state.files, curFile];
         this.setState({
             ...this.state,
@@ -24,8 +24,14 @@ class App extends Component {
         });
     };
 
-    updateCurFile = (cur) => {
-        this.setState({ currentFile: cur });
+    updateIndex = (index) => {
+        console.log(index);
+        this.setState({ curIndex: index });
+    }
+
+    updateFileData = data => {
+        const newData = [...this.state.filesData, data];
+        this.setState({ filesData: newData });
     }
 
     // USED FOR DEVELOPMENT PURPOSE
@@ -37,11 +43,19 @@ class App extends Component {
     // }
 
     render() {
-        const { currentFile, files } = this.state;
+        const { curIndex, files } = this.state;
         return (
             <div className="mainContainer">
-                <LeftNavigation files={files} onInputChange={this.onInputChange} updateCurFile={this.updateCurFile} />
-                <ContentPanel currentFile={currentFile} />
+                <LeftNavigation
+                    files={files}
+                    index={curIndex}
+                    onInputChange={this.onInputChange}
+                    updateIndex={this.updateIndex}
+                />
+                <ContentPanel
+                    files={files}
+                    index={curIndex}
+                />
             </div>
         )
     }
