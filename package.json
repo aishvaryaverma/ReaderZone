@@ -1,6 +1,7 @@
 {
 	"name": "reader-zone",
 	"version": "0.1.0",
+	"homepage": "https://readerzone.herokuapp.com/",
 	"private": true,
 	"scripts": {
 		"start": "react-scripts start",
